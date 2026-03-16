@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var apiRouter = require('./apiRouter').router;
+require('dotenv').config(); // permet de charger les variables d'environnement à partir d'un fichier .env, ce qui est utile pour stocker des informations sensibles comme les clés d'API ou les mots de passe de base de données. Avec cette configuration, les variables définies dans le fichier .env seront accessibles via process.env.VARIABLE_NAME dans le code de l'application.
 
 //extentiate server
 var server = express();
@@ -18,6 +19,6 @@ server.get('/', function(req, res) {
 server.use('/api/', apiRouter); //toutes les routes définies dans apiRouter seront préfixées par /api. Par exemple, si apiRouter définit une route pour /users/register, elle sera accessible via /api/users/register. Cela permet d'organiser les routes de manière plus claire et de séparer les différentes parties de l'API.
 
 //launch server
-server.listen(8080, function() {
-    console.log('Server is running on port 8080');
+server.listen(process.env.PORT, function() {
+    console.log('Server is running on port ' + process.env.PORT);
 })
